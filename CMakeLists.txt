@@ -12,7 +12,7 @@ set(SOURCES
         GrayscalePlotter.cpp
         GrayscalePlotter.hpp
         Config.cpp
-        Canvas.hpp
+        LogDuration.hpp
         DemoRunner.cpp
         DemoRunner.hpp
         json.cpp

@@ -1,7 +1,9 @@
 #include "DemoRunner.hpp"
+#include "LogDuration.hpp"
 #include "PlotterFactory.hpp"
 #include <fstream>
 #include <iostream>
+#include <sstream>
 
 namespace plotter
 {
@@ -240,9 +242,18 @@ void DemoRunner::CompareFillAlgorithms()
     plotter1.Render(ss);
 
     // Измерьте время выполнения заливки двумя методами
-    plotter1.FloodFill(10, 10, 'F');
+    long long floodfill_time = 0;
+    long long scanline_time = 0;
 
-    plotter2.ScanlineFill(10, 10, 'S');
+    {
+        MEASURE_DURATION(floodfill_time);
+        plotter1.FloodFill(10, 10, 'F');
+    }
+
+    {
+        MEASURE_DURATION(scanline_time);
+        plotter2.ScanlineFill(10, 10, 'S');
+    }
 
     ss << "FloodFill time: " << floodfill_time << " microseconds\n";
     ss << "ScanlineFill time: " << scanline_time << " microseconds\n";
