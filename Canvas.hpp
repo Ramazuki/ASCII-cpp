@@ -19,6 +19,7 @@ public:
     Canvas(Canvas&& other) noexcept;
     Canvas& operator=(const Canvas& other);
     Canvas& operator=(Canvas&& other) noexcept;
+    ~Canvas() = default;
 
     [[nodiscard]] int Width() const noexcept;
     [[nodiscard]] int Height() const noexcept;
@@ -49,8 +50,10 @@ private:
     int width_;
     int height_;
     char background_;
-    // Добавьте контейнер для хранения данных
+    // пиксель (x, y) лежит в data_[y * width_ + x]
+    std::vector<char> data_;
 
+    [[nodiscard]] size_t Index(int x, int y) const noexcept;
 };
 
 } // namespace plotter
