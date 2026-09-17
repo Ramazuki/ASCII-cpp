@@ -11,6 +11,28 @@ std::vector<char> GrayscalePlotter::DefaultPalette()
     return { ' ', '.', ':', '-', '=', '+', '*', '#', '%', '@' };
 }
 
+GrayscalePlotter::GrayscalePlotter(std::unique_ptr<Canvas> canvas, const std::vector<char>& palette)
+    : Plotter(std::move(canvas))
+    , palette_(palette.empty() ? DefaultPalette() : palette)
+{
+}
+
+GrayscalePlotter::GrayscalePlotter(int width, int height, char background_char,
+    const std::vector<char>& palette)
+    : Plotter(width, height, background_char)
+    , palette_(palette.empty() ? DefaultPalette() : palette)
+{
+}
+
+char GrayscalePlotter::BrightnessToChar(double brightness) const
+{
+    const auto scaled_brightness = std::min(std::max(brightness, 0.0), 1.0);
+    const auto last = palette_.size() - 1;
+    const auto index = static_cast<size_t>(scaled_brightness * static_cast<double>(last));
+
+    return palette_[std::min(index, last)];
+}
+
 void GrayscalePlotter::DrawLine(const int x1, const int y1, const int x2, const int y2, const double brightness)
 {
     Plotter::DrawLine(x1, y1, x2, y2, BrightnessToChar(brightness));
