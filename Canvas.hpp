@@ -47,9 +47,9 @@ public:
     PixelIterator end();
 
 private:
-    int width_;
-    int height_;
-    char background_;
+    int width_ = 0;
+    int height_ = 0;
+    char background_ = ' ';
     // пиксель (x, y) лежит в data_[y * width_ + x]
     std::vector<char> data_;
 

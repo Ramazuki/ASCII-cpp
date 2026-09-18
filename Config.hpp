@@ -8,9 +8,9 @@ namespace plotter
 
 struct PlotterConfig
 {
-    int width;
-    int height;
-    char background_char;
+    int width = 0;
+    int height = 0;
+    char background_char = ' ';
     std::vector<char> palette;
     std::string plotter_type; // "basic" или "grayscale"
 };

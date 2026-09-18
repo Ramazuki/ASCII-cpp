@@ -1,5 +1,6 @@
 #pragma once
 #include "Canvas.hpp"
+#include <cassert>
 #include <cstddef>
 #include <iterator>
 
@@ -26,6 +27,7 @@ public:
 
     reference operator*() const
     {
+        assert(canvas_ != nullptr);
         return canvas_->data_[canvas_->Index(col_, row_)];
     }
 
@@ -156,6 +158,7 @@ public:
 
     reference operator*() const
     {
+        assert(canvas_ != nullptr);
         return canvas_->data_[canvas_->Index(col_, row_)];
     }
 
@@ -285,6 +288,7 @@ public:
 
     reference operator*() const
     {
+        assert(canvas_ != nullptr);
         return canvas_->data_[pos_];
     }
 
@@ -300,11 +304,13 @@ public:
 
     [[nodiscard]] int X() const noexcept
     {
+        assert(canvas_ != nullptr);
         return static_cast<int>(pos_ % static_cast<size_t>(canvas_->width_));
     }
 
     [[nodiscard]] int Y() const noexcept
     {
+        assert(canvas_ != nullptr);
         return static_cast<int>(pos_ / static_cast<size_t>(canvas_->width_));
     }
 
